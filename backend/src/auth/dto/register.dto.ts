@@ -1,0 +1,17 @@
+import { IsEmail, IsString, IsNotEmpty, MinLength, MaxLength } from 'class-validator';
+
+export class RegisterDto {
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(100)
+  name!: string;
+
+  @IsEmail({}, { message: 'Please provide a valid email address' })
+  @IsNotEmpty()
+  email!: string;
+
+  @IsString()
+  @MinLength(6, { message: 'Password must be at least 6 characters' })
+  @MaxLength(50)
+  password!: string;
+}
