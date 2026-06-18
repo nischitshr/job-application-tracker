@@ -28,7 +28,7 @@ async function bootstrap(): Promise<void> {
   // ── CORS ────────────────────────────────────────────────────────────────────
   // Enable for Next.js frontend consumption
   app.enableCors({
-    origin: true,
+    origin: process.env['FRONTEND_URL'] ?? 'http://localhost:3000',
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
