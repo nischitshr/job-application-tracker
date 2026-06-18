@@ -1,8 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Application } from '@/types';
+import { Application, JobType, ApplicationStatus } from '../types';
 import { X } from 'lucide-react';
+
+interface FormState {
+  company_name: string;
+  job_title: string;
+  job_type: JobType;
+  status: ApplicationStatus;
+  applied_date: string;
+  notes: string;
+}
 
 interface Props {
   application?: Application | null;
@@ -15,7 +24,7 @@ export default function ApplicationModal({ application, onClose, onSubmit }: Pro
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormState>({
     company_name: '',
     job_title: '',
     job_type: 'Internship',
@@ -102,7 +111,7 @@ export default function ApplicationModal({ application, onClose, onSubmit }: Pro
               <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
               <select
                 value={form.job_type}
-                onChange={(e) => setForm({ ...form, job_type: e.target.value })}
+                onChange={(e) => setForm({ ...form, job_type: e.target.value as JobType })}
                 className={field}
               >
                 <option value="Internship">Internship</option>
@@ -115,7 +124,7 @@ export default function ApplicationModal({ application, onClose, onSubmit }: Pro
               <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
               <select
                 value={form.status}
-                onChange={(e) => setForm({ ...form, status: e.target.value })}
+                onChange={(e) => setForm({ ...form, status: e.target.value as ApplicationStatus })}
                 className={field}
               >
                 <option value="Applied">Applied</option>
