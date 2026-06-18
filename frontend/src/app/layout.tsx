@@ -6,8 +6,8 @@ import { AuthProvider } from '@/context/AuthContext';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Job Application Tracker',
-  description: 'Track your job applications in one place',
+  title: 'Job Tracker',
+  description: 'Track your job applications',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Application } from '../types';
-import { X, Loader2 } from 'lucide-react';
+import { Application } from '@/types';
+import { X } from 'lucide-react';
 
 interface Props {
   application?: Application | null;
@@ -12,7 +12,7 @@ interface Props {
 
 export default function ApplicationModal({ application, onClose, onSubmit }: Props) {
   const isEditing = !!application;
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const [form, setForm] = useState({
@@ -40,72 +40,70 @@ export default function ApplicationModal({ application, onClose, onSubmit }: Pro
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setIsLoading(true);
+    setLoading(true);
     try {
       await onSubmit(form);
       onClose();
-    } catch (err: any) {
-      setError(err.response?.data?.message ?? 'Something went wrong');
+    } catch (err: unknown) {
+      const e = err as { response?: { data?: { message?: string } } };
+      setError(e.response?.data?.message ?? 'Something went wrong');
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
-  const inputClass = "w-full bg-slate-800 border border-slate-700 text-white placeholder-slate-500 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition";
-  const labelClass = "block text-sm font-medium text-slate-300 mb-1.5";
+  const field = "w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent";
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg">
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-slate-800">
-          <h2 className="text-white font-semibold text-lg">
-            {isEditing ? 'Edit application' : 'Add application'}
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg w-full max-w-md shadow-xl">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+          <h2 className="text-base font-semibold text-gray-900">
+            {isEditing ? 'Edit application' : 'New application'}
           </h2>
-          <button onClick={onClose} className="text-slate-500 hover:text-white transition">
-            <X className="w-5 h-5" />
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition">
+            <X size={18} />
           </button>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+        <form onSubmit={handleSubmit} className="p-5 space-y-4">
           {error && (
-            <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-lg px-4 py-3">
+            <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-md px-3 py-2">
               {error}
-            </div>
+            </p>
           )}
 
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2">
-              <label className={labelClass}>Company name</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Company</label>
               <input
                 type="text"
                 value={form.company_name}
                 onChange={(e) => setForm({ ...form, company_name: e.target.value })}
                 placeholder="Google"
                 required
-                className={inputClass}
+                className={field}
               />
             </div>
 
             <div className="col-span-2">
-              <label className={labelClass}>Job title</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Job title</label>
               <input
                 type="text"
                 value={form.job_title}
                 onChange={(e) => setForm({ ...form, job_title: e.target.value })}
-                placeholder="Software Engineering Intern"
+                placeholder="Software Engineer Intern"
                 required
-                className={inputClass}
+                className={field}
               />
             </div>
 
             <div>
-              <label className={labelClass}>Job type</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
               <select
                 value={form.job_type}
                 onChange={(e) => setForm({ ...form, job_type: e.target.value })}
-                className={inputClass}
+                className={field}
               >
                 <option value="Internship">Internship</option>
                 <option value="FullTime">Full-time</option>
@@ -114,11 +112,11 @@ export default function ApplicationModal({ application, onClose, onSubmit }: Pro
             </div>
 
             <div>
-              <label className={labelClass}>Status</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
               <select
                 value={form.status}
                 onChange={(e) => setForm({ ...form, status: e.target.value })}
-                className={inputClass}
+                className={field}
               >
                 <option value="Applied">Applied</option>
                 <option value="Interviewing">Interviewing</option>
@@ -128,50 +126,44 @@ export default function ApplicationModal({ application, onClose, onSubmit }: Pro
             </div>
 
             <div className="col-span-2">
-              <label className={labelClass}>Date applied</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Date applied</label>
               <input
                 type="date"
                 value={form.applied_date}
                 onChange={(e) => setForm({ ...form, applied_date: e.target.value })}
                 required
-                className={inputClass}
+                className={field}
               />
             </div>
 
             <div className="col-span-2">
-              <label className={labelClass}>Notes <span className="text-slate-500">(optional)</span></label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Notes <span className="text-gray-400 font-normal">(optional)</span>
+              </label>
               <textarea
                 value={form.notes}
                 onChange={(e) => setForm({ ...form, notes: e.target.value })}
-                placeholder="Add any notes about this application..."
+                placeholder="Any notes about this application..."
                 rows={3}
-                className={`${inputClass} resize-none`}
+                className={`${field} resize-none`}
               />
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="flex gap-3 pt-2">
+          <div className="flex gap-2 pt-1">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium rounded-lg py-2.5 text-sm transition"
+              className="flex-1 border border-gray-300 text-gray-700 text-sm font-medium rounded-md py-2 hover:bg-gray-50 transition"
             >
               Cancel
             </button>
             <button
               type="submit"
-              disabled={isLoading}
-              className="flex-1 bg-violet-600 hover:bg-violet-500 disabled:bg-violet-800 text-white font-medium rounded-lg py-2.5 text-sm transition flex items-center justify-center gap-2"
+              disabled={loading}
+              className="flex-1 bg-gray-900 text-white text-sm font-medium rounded-md py-2 hover:bg-gray-700 transition disabled:opacity-50"
             >
-              {isLoading ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  Saving...
-                </>
-              ) : (
-                isEditing ? 'Save changes' : 'Add application'
-              )}
+              {loading ? 'Saving...' : isEditing ? 'Save changes' : 'Add application'}
             </button>
           </div>
         </form>

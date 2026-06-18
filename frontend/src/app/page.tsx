@@ -10,17 +10,13 @@ export default function Home() {
 
   useEffect(() => {
     if (!isLoading) {
-      if (user) {
-        router.push('/dashboard');
-      } else {
-        router.push('/login');
-      }
+      router.replace(user ? '/dashboard' : '/login');
     }
   }, [user, isLoading, router]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-950">
-      <div className="w-8 h-8 border-4 border-violet-500 border-t-transparent rounded-full animate-spin" />
+    <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="w-5 h-5 border-2 border-gray-300 border-t-gray-800 rounded-full animate-spin" />
     </div>
   );
 }
