@@ -11,11 +11,11 @@ A full-stack web app to track your job applications. Built as an internship assi
 
 ## Screenshots
 
-
+![Register Page](./screenshots/register.png)
 ![Login Page](./screenshots/login.png)
-
 ![Dashboard](./screenshots/dashboard.png)
 ![Add Application](./screenshots/add-application.png)
+
 
 ---
 
