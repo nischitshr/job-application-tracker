@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Navy/White helpers for small custom classes used in components */
+:root {
+  --navy-900: #08203a;
+  --navy-800: #0b2b4a;
+  --navy-700: #0f3a63;
+  --navy-100: #dfeaf6;
+}
+
+.bg-navy-900 { background-color: var(--navy-900); }
+.bg-navy-800 { background-color: var(--navy-800); }
+.bg-navy-700 { background-color: var(--navy-700); }
+.text-navy-900 { color: var(--navy-900); }
+.text-navy-100 { color: var(--navy-100); }
+.focus\:ring-navy-500:focus { box-shadow: 0 0 0 3px rgba(15,90,140,0.25); }
+
+/* Muted link style for auth forms */
+.link-muted {
+  color: rgba(223, 234, 246, 0.85);
+  text-decoration: none;
+}
+.link-muted:hover {
+  color: rgba(255, 255, 255, 0.98);
+  text-decoration: underline;
+}
+
+/* Primary and secondary link styles for auth forms */
+.link-primary {
+  color: var(--navy-700);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+.link-primary:hover {
+  color: var(--navy-800);
+  text-decoration: underline;
+}
+
+.link-secondary {
+  color: rgba(223,234,246,0.85);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+.link-secondary:hover {
+  color: rgba(255,255,255,0.98);
+  text-decoration: underline;
+}
+
+/* Primary link for auth forms (calls-to-action) */
+.link-primary {
+  color: var(--navy-700);
+  font-weight: 600;
+}
+.link-primary:hover {
+  color: var(--navy-800);
+  text-decoration: underline;
+}
+
