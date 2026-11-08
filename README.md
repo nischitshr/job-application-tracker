@@ -11,10 +11,13 @@ A full-stack web app to track your job applications. Built as an internship assi
 
 ## Screenshots
 
-![Register Page](./screenshots/register.png)
-![Login Page](./screenshots/login.png)
-![Dashboard](./screenshots/dashboard.png)
-![Add Application](./screenshots/add-application.png)
+![Register Page]
+<img width="1916" height="871" alt="image" src="https://github.com/user-attachments/assets/3261335a-a369-4de6-ada5-14e21e390a0e" />
+
+![Login Page]
+<img width="1912" height="877" alt="image" src="https://github.com/user-attachments/assets/7ebc93ee-e97d-462c-bf1b-e5f315573828" />
+
+
 
 
 ---
